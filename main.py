@@ -5,11 +5,11 @@ app = modal.App("modal-reader")
 image = (
     modal.Image.debian_slim(python_version="3.12")
     .pip_install(
-        "fastapi",
-        "gradio",
-        "kokoro",
-        "torch",
-        "hf_transfer",
+        "fastapi>=0.115.12",
+        "gradio>=5.29.0",
+        "hf-transfer>=0.1.9",
+        "kokoro>=0.9.4",
+        "torch>=2.7.0",
     )
     .env({"HF_HUB_ENABLE_HF_TRANSFER": "1"})
 )
@@ -248,6 +248,5 @@ def ui():
             api_name=API_NAME,
         )
 
-    app.queue(api_open=API_OPEN).launch(show_api=API_OPEN, ssr_mode=True)
-
+    app.queue(max_size=10)
     return mount_gradio_app(app=FastAPI(), blocks=app, path="/")
