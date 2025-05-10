@@ -4,6 +4,7 @@ app = modal.App("modal-reader")
 
 image = (
     modal.Image.debian_slim(python_version="3.12")
+    .apt_install("espeak-ng", "ffmpeg", "libsndfile1")
     .pip_install(
         "fastapi>=0.115.12",
         "gradio>=5.29.0",
